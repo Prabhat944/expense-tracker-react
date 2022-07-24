@@ -1,0 +1,31 @@
+.headline{
+    position: relative;
+    height: 3rem;
+    border-bottom: 2px solid gray;
+}
+.profile{
+    position: absolute;
+    right:0;
+    top:0;
+    font-size: 1.2rem;
+    width:30rem;
+    height:fit-content;
+    font-weight: bold;
+    border-radius: 1.2rem;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color:rgb(247, 211, 247) ;
+    padding: 10px 0;
+}
+.profile a{
+    border:none;
+    background-color: transparent;
+    font-size: 1.2rem;
+    color:blue;
+    font-weight:bold;
+    text-decoration: none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.profile a:hover{
+    cursor: pointer;
+}

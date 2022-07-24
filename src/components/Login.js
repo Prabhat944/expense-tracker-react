@@ -1,5 +1,6 @@
 import styles from './Login.module.css';
 import {useRef, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 const Login=(props)=>{
     const userEmailRef=useRef();
     const userPasswordRef=useRef();
@@ -7,7 +8,7 @@ const Login=(props)=>{
 
     const [isLogin,setIsLogin]=useState(false);
     const [isLoading,setIsLoading]=useState(false);
-   
+    const history=useHistory();
     const IsLoginHandler=()=>{
         setIsLogin(prev=>!prev);
     }
@@ -38,6 +39,7 @@ const Login=(props)=>{
                 isLogin?console.log(" User has successfully Logged In"):console.log(" User has successfully Sign Up");
                 localStorage.setItem('Token',data.idToken);
                 props.checkLogin(data);
+                history.replace('/home')
             });
                
                
