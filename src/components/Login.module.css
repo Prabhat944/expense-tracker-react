@@ -12,7 +12,7 @@
     font-size: 2.5rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-.container button{
+.loginbutton{
     width:380px;
     height:65px;
     border-radius: 25px;
@@ -23,7 +23,7 @@
     margin-top: 10px;
 
 }
-.container button:hover{
+.loginbutton:hover{
     background-color: rgb(0, 255, 255); 
 }
 .email{
@@ -72,4 +72,14 @@
     height:60%;
     position:absolute;
     right:0;
+}
+.forgetpassword{
+    border:none;
+    text-decoration: underline;
+    font-size: 1.4rem;
+    color:blue;
+    margin: auto;
+    margin-top: 30px;
+    background-color: white;
+
 }

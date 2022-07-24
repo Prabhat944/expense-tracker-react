@@ -1,16 +1,25 @@
 import styles from './Login.module.css';
-import {useRef} from 'react';
-const Login=()=>{
+import {useRef, useState} from 'react';
+const Login=(props)=>{
     const userEmailRef=useRef();
     const userPasswordRef=useRef();
     const userConfirmPasswordRef=useRef();
+
+    const [isLogin,setIsLogin]=useState(false);
+    const [isLoading,setIsLoading]=useState(false);
+   
+    const IsLoginHandler=()=>{
+        setIsLogin(prev=>!prev);
+    }
    const FormSubmitHandler=event=>{
     event.preventDefault();
     const email=userEmailRef.current.value;
     const password=userPasswordRef.current.value;
-    const confirmPassword=userConfirmPasswordRef.current.value;
-    if(password === confirmPassword){
-       fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE',
+    const confirmPassword=isLogin ? '':userConfirmPasswordRef.current.value;
+    setIsLoading(true);
+    const URL=isLogin?'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE':'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE';
+    if(password === confirmPassword || isLogin){
+       fetch(URL,
        {
         method:'POST',
         body:JSON.stringify({
@@ -23,8 +32,15 @@ const Login=()=>{
         }
        })
        .then(res=>{
+        setIsLoading(false);
            if(res.ok){
-               res.json().then(data=>console.log(" User has successfully signed up"))
+               res.json().then(data=>{
+                isLogin?console.log(" User has successfully Logged In"):console.log(" User has successfully Sign Up");
+                localStorage.setItem('Token',data.idToken);
+                props.checkLogin(data);
+            });
+               
+               
                 }
             else{
                 return res.json().then(data=>{
@@ -46,7 +62,7 @@ const Login=()=>{
         <div>
             <img className={styles.style} src='corner.JPG' alt='corner'/>
             <form className={styles.container} onSubmit={FormSubmitHandler}>
-                <h2>SignUp</h2>
+                <h2>{isLogin? 'LogIn':'SignUp'}</h2>
                 <div className={styles.email}>
                     <input type='email' placeholder='Email' required ref={userEmailRef}/>
                 </div>
@@ -54,12 +70,13 @@ const Login=()=>{
                     <input type='password' placeholder='Password' required ref={userPasswordRef}/>
                 </div>
                 <div className={styles.password}>
-                    <input type='password' placeholder='ConfirmPassword' required ref={userConfirmPasswordRef}/>
+                    {!isLogin && <input type='password' placeholder='ConfirmPassword' required ref={userConfirmPasswordRef}/>}
                 </div>
-                <button>Sign up</button>
+                {isLoading? <h3>Loading...</h3>:<button className={styles.loginbutton}>{isLogin? 'Login':'Sign up'}</button>}
+                {isLogin && <button className={styles.forgetpassword}>Forget Password</button>}
             </form>
             <div className={styles.usertype}>
-                <button href=''>Have an account? Login</button>
+                <button href='' onClick={IsLoginHandler}>{isLogin? "Don't have an account? Signup":'Have an account? Login'}</button>
             </div>
         </div>
     );
