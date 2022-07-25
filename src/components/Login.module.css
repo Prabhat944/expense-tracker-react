@@ -17,6 +17,8 @@
     min-height:35px;
     border-radius: 10px;
     font-size: 1.2rem;
+    display: block;
+    margin: auto;
     background-color: rgb(0, 179, 255);
     color: white;
     border:none;
@@ -72,13 +74,12 @@
     position:absolute;
     right:0;
 }
-.forgetpassword{
-    border:none;
-    text-decoration: underline;
-    font-size: 1rem;
-    color:blue;
+.container a{
+    display: block;
     margin: auto;
-    margin-top: 30px;
-    background-color: white;
+    margin-top: 20px;
 
+}
+.container a:hover{
+    color: blue;
 }

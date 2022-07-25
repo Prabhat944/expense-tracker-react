@@ -1,9 +1,17 @@
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../../Store/AuthContext';
 import styles from './Header.module.css';
 const Header=()=>{
      const ctx=useContext(AuthContext);
-     
+     const history=useHistory();
+     const UserStateHandler=()=>{
+        if(ctx.Login){
+            ctx.UserLogOut();
+        }else{
+            history.replace('/login');
+        }
+     }
     return(
         <header className={styles.header}>
         <h1>MyWebLink</h1>
@@ -12,7 +20,7 @@ const Header=()=>{
             <li>Products</li>
             <li>About Us</li>
         </ul>
-        <button className={styles.userState} onClick={()=>ctx.UserLogOut()}>{ctx.Login?'Logout':'Login'}</button>
+        <button className={styles.userState} onClick={UserStateHandler}>{ctx.Login?'Logout':'Login'}</button>
         </header>
     );
 };

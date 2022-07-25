@@ -1,6 +1,6 @@
 import styles from './Login.module.css';
 import {useContext, useRef, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import AuthContext from '../Store/AuthContext';
 const Login=(props)=>{
     const ctx=useContext(AuthContext)
@@ -76,7 +76,7 @@ const Login=(props)=>{
                     {!isLogin && <input type='password' placeholder='ConfirmPassword' required ref={userConfirmPasswordRef}/>}
                 </div>
                 {isLoading? <h3>Loading...</h3>:<button className={styles.loginbutton}>{isLogin? 'Login':'Sign up'}</button>}
-                {isLogin && <button className={styles.forgetpassword}>Forget Password</button>}
+                {isLogin && <Link to='/forgetPassword' >Forget Password</Link>}
             </form>
             <div className={styles.usertype}>
                 <button href='' onClick={IsLoginHandler}>{isLogin? "Don't have an account? Signup":'Have an account? Login'}</button>
