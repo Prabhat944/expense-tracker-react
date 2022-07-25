@@ -1,7 +1,9 @@
 import styles from './Profile.module.css';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef,useState} from 'react';
 
 const Profile=props=>{
+    const [IsLoading,setIsLoading]=useState(false);
+    const [Emailverified,setEmailVerified]=useState(false);
     const userNameRef=useRef();
     const userUrlRef=useRef();
     useEffect(()=>{
@@ -17,12 +19,49 @@ const Profile=props=>{
         if(data.users){
             userNameRef.current.value=data.users[0].displayName;
             userUrlRef.current.value=data.users[0].photoUrl;
+            localStorage.setItem('EmailVerified',data.users[0].emailVerified);
         }
-        
+        setEmailVerified(localStorage.getItem('EmailVerified'));
        }
        FetchData()
        
     },[])
+
+ const EmailVerifiedHandler=async()=>{
+    setIsLoading(true);
+    await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE',
+    {
+        method:'POST',
+        body:JSON.stringify({
+            requestType: "VERIFY_EMAIL",
+            idToken:localStorage.getItem('Token')
+        }),
+        headers:{
+            'Content-Type':'application/json'
+        }
+    })
+    .then(res=>{
+        setIsLoading(false);
+        if(res.ok){
+              res.json().then(data=>{
+                console.log('Verification successful',data);
+                alert('Verification link send to your email');
+                
+            })
+        }else{
+            return res.json().then(data=>
+                {
+                    let error='Verification Failed';
+                    if(data && data.error && data.error.message){
+                        error=data.error.message;
+                    }
+                    alert(error);
+                })
+        }
+    })
+    .catch(err=>console.log('error',err));
+    }
+
     const contactFormHandler=(event)=>{
         event.preventDefault();
          const token=localStorage.getItem('Token');
@@ -79,6 +118,11 @@ const Profile=props=>{
                 </div>
             </form>
             
+        </div>
+        <div className={styles.verify}>
+           {Emailverified ?<h2>Your Email is Verified</h2>: "Your Email is Not Verified"}
+           {!Emailverified && <button onClick={EmailVerifiedHandler}>{IsLoading ?'Verifying...' :"Verify Now"}</button>}
+           
         </div>
         </div>
     );
