@@ -1,25 +1,24 @@
-import { useState } from 'react';
+import { useContext} from 'react';
 import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import Layout from './components/Navigation/Layout';
 import Profile from './components/Profile';
 import {Route} from 'react-router-dom';
+import AuthContext from './Store/AuthContext';
 
 function App() {
-  const [UserLogin,setUserLogin]=useState(false);
-const LoginHandler=(state)=>{
-    setUserLogin(true);
-}
+  const ctx=useContext(AuthContext);
+  
   return (
       <Layout>
-        {!UserLogin &&<Route path='/'>
-            <Login checkLogin={LoginHandler}/>
+        {!ctx.Login &&<Route path='/'>
+            <Login />
         </Route>}
-        {UserLogin && <Route path='/home' >
+        {ctx.Login && <Route path='/home' >
             <Home />
         </Route>}
-        {UserLogin && <Route path='/profile'>
+        {ctx.Login && <Route path='/profile'>
             <Profile /> 
         </Route>}
         

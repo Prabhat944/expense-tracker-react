@@ -1,7 +1,9 @@
 import styles from './Login.module.css';
-import {useRef, useState} from 'react';
+import {useContext, useRef, useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import AuthContext from '../Store/AuthContext';
 const Login=(props)=>{
+    const ctx=useContext(AuthContext)
     const userEmailRef=useRef();
     const userPasswordRef=useRef();
     const userConfirmPasswordRef=useRef();
@@ -37,8 +39,7 @@ const Login=(props)=>{
            if(res.ok){
                res.json().then(data=>{
                 isLogin?console.log(" User has successfully Logged In"):console.log(" User has successfully Sign Up");
-                localStorage.setItem('Token',data.idToken);
-                props.checkLogin(data);
+                ctx.UserLogin(data);
                 history.replace('/home')
             });
                

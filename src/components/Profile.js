@@ -1,9 +1,28 @@
 import styles from './Profile.module.css';
-import {useRef} from 'react';
+import {useEffect, useRef} from 'react';
 
 const Profile=props=>{
     const userNameRef=useRef();
     const userUrlRef=useRef();
+    useEffect(()=>{
+       const FetchData=async()=>{
+        const response=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE',{
+            method:"POST",
+            body:JSON.stringify({idToken:localStorage.getItem('Token')}),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        })
+        const data=await response.json()
+        if(data.users){
+            userNameRef.current.value=data.users[0].displayName;
+            userUrlRef.current.value=data.users[0].photoUrl;
+        }
+        
+       }
+       FetchData()
+       
+    },[])
     const contactFormHandler=(event)=>{
         event.preventDefault();
          const token=localStorage.getItem('Token');
@@ -16,7 +35,7 @@ const Profile=props=>{
                 idToken:token,
                 displayName:name,
                 photoUrl:url,
-                deleteAttribute:["DISPLAY_NAME","PHOTO_URL"],
+                deleteAttribute:[],
                 returnSecureToken:true
             }),
             headers:{
@@ -49,11 +68,11 @@ const Profile=props=>{
             <form className={styles.contactform} onSubmit={contactFormHandler}>
                 <div className={styles.name}>
                     <label>Full Name:</label>
-                    <input type='text' ref={userNameRef} required/>
+                    <input type='text' ref={userNameRef} required />
                 </div>
                 <div className={styles.url}>
                     <label>Profile Photo URL</label>
-                    <input type='url' ref={userUrlRef} required/>
+                    <input type='url' ref={userUrlRef} required />
                 </div>
                 <div className={styles.update}>
                     <button >Update</button>
