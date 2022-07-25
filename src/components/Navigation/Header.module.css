@@ -19,3 +19,17 @@
    gap: 40px;
    font-size: 1.2rem;
 }
+.userState{
+    position: relative;
+    left:5%;
+    border:1px solid rgb(67, 145, 208);
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    color:rgb(67, 145, 208);
+}
+.userState:hover{
+    background-color:rgb(67, 145, 208) ;
+    color:white;
+    cursor: pointer;
+}

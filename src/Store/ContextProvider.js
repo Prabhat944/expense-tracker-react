@@ -19,12 +19,12 @@ const ContextProvider=(props)=>{
         setIsLogin(true);
         localStorage.setItem('Token',data.idToken);
         localStorage.setItem('Email',data.email);
-        
     }
     const LogoutHandler=()=>{
         setIsLogin(false);
         localStorage.removeItem('Token');
         localStorage.removeItem('Email');
+        localStorage.removeItem('EmailVerified');
     }
 const contextItem={
     email:email,
