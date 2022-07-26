@@ -1,7 +1,8 @@
 .container{
     width:260px;
     min-height:300px;
-    border: 5px solid rgb(217, 215, 215);
+    border: 5px outset rgb(217, 215, 215);
+    border-radius: 10px;
     background-color:white;
     text-align: center;
     position: absolute;

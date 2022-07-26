@@ -18,7 +18,7 @@ function App() {
             <Redirect to='/login' />
           </Route>
         <Route path='/login' exact>
-             {!ctx.Login &&<Login />}
+             <Login />
         </Route>
         <Route path='/forgetpassword' exact>
           <ForgetPassword />

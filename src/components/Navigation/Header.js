@@ -8,9 +8,8 @@ const Header=()=>{
      const UserStateHandler=()=>{
         if(ctx.Login){
             ctx.UserLogOut();
-        }else{
-            history.replace('/login');
         }
+            history.replace('/login');
      }
     return(
         <header className={styles.header}>

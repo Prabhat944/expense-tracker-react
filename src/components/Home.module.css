@@ -3,6 +3,9 @@
     height: 3rem;
     border-bottom: 2px solid gray;
 }
+.headline h3{
+    margin-left: 50px;
+}
 .profile{
     position: absolute;
     right:0;
@@ -28,4 +31,108 @@
 }
 .profile a:hover{
     cursor: pointer;
+}
+
+.expenseContainer{
+    width:100%;
+    
+}
+.formContainer{
+   width:400px;
+   height:300px;
+   border:3px solid grey;
+   border-radius: 10px;
+   margin:auto;
+   margin-top: 30px;
+   text-align: center;
+   font-size: 1rem;
+   font-weight: bold;
+   background-color: rgb(159, 235, 235);
+   padding-top: 10px;
+}
+.amount{
+   display: flex;
+   flex-direction: column;
+}
+.amount input,
+.description input{
+    width:300px;
+    height:25px;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    border:3px groove grey;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+.description{
+    display: flex;
+    flex-direction: column;
+}
+.category{
+    display: flex;
+    flex-direction: column;
+}
+.category select{
+    width:310px;
+    height:32px;
+    text-align: center;
+    margin: auto;
+    border:3px groove grey;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+.formContainer button{
+    width:150px;
+    height:30px;
+    border-radius: 5px;
+    background-color: rgb(63, 63, 238);
+    color:white;
+    font-weight: bold;
+}
+.userExpenses{
+    width:70%;
+    background-color: rgba(0, 0, 0, 0.373);
+    color: white;
+    margin: auto;
+    border-radius: 10px;
+    border:3px groove grey;
+    margin-top: 20px;
+    padding:10px 0;
+}
+.expense{
+    width:90%;
+    min-height: 60px;
+    margin: auto;
+    background-color: grey;
+    border:3px groove grey;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.expense ul{
+    list-style: none;
+    display:flex;
+    margin:0;
+    padding: 0;
+    justify-content: space-evenly;
+}
+.expense li{
+    min-width:100px;
+    max-width: 400px;
+}
+.expense h3{
+    margin:auto;
+    color:aqua;
+}
+
+@media(max-width:750px){
+    .headline{
+        height:5rem;
+    }
+    .profile{
+        left:10px;
+        top:30px;
+    }
 }

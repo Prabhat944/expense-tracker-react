@@ -2,6 +2,10 @@
     position: relative;
     min-height: 3rem;
     border-bottom: 2px solid gray;
+    z-index: 10;
+}
+.headline h3{
+    margin-left: 50px;
 }
 .profile{
     position: absolute;
@@ -15,6 +19,7 @@
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color:rgb(247, 211, 247) ;
+    z-index: 10;
 }
 .profile button{
     border:none;
@@ -28,26 +33,27 @@
     cursor: pointer;
 }
 .contacts{
-    width:60%;
+    width:680px;
     min-height:11rem;
     border-bottom: 2px solid gray;
     position: absolute;
     right:70px;
     top:60px;
+    z-index: 10;
 }
 .details{
     display: flex;
     justify-content: space-between;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 .details button{
     width:70px;
     height:30px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color:red;
     background-color: white;
-    margin-top: 30px;
+    margin-top: 20px;
     border: 3px solid red;
     border-radius: 10px;
 }
@@ -67,12 +73,12 @@
 .name,
 .url{
     display: flex;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
 }
 .name input,
 .url input{
-    width:150px;
+    width:200px;
     height:25px;
     border-radius: 5px;
     font-size: 1rem;
@@ -80,7 +86,7 @@
 .update button{
     width:70px;
     height:30px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color:white;
     border: none;
@@ -97,7 +103,7 @@
 .verify{
     width:300px;
     margin: 20px;
-    min-height:100px;
+    min-height:80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,4 +117,20 @@
     background-color: rgb(92, 92, 233);
     color:white;
     font-weight: bold;
+}
+@media(max-width:1050px){
+    .contacts{
+        left:5%;
+        top:200px;
+    }
+
+}
+@media(max-width:830px){
+    .headline{
+      height:6rem;
+    }
+    .profile{
+        top: 40px;
+        left:20px;
+    }
 }

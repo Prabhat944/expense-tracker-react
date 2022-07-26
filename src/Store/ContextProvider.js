@@ -5,6 +5,7 @@ const ContextProvider=(props)=>{
     const [isLogin,setIsLogin]=useState(false);
     const [email,setEmail]=useState('');
     const [token,setToken]=useState('');
+    const [expenses,setExpenses]=useState([]);
 
     useEffect(()=>{
           const emailId=localStorage.getItem('Email');
@@ -26,13 +27,18 @@ const ContextProvider=(props)=>{
         localStorage.removeItem('Email');
         localStorage.removeItem('EmailVerified');
     }
+    const ExpenseHandler=data=>{
+        setExpenses(prev=>[...prev,data]);
+    }
 const contextItem={
+    expenseData:expenses,
     email:email,
     token:token,
     username:'',
     Login:isLogin,
     UserLogin:LoginHandler,
-    UserLogOut:LogoutHandler
+    UserLogOut:LogoutHandler,
+    AddExpense:ExpenseHandler
 
 }
     return (
