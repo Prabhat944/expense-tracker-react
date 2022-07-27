@@ -8,7 +8,8 @@ const AuthContext=React.createContext({
     Login:false,
     UserLogin:(data)=>{},
     UserLogOut:()=>{},
-    AddExpense:(data)=>{}
+    AddExpense:(data)=>{},
+    DeleteExpense:(key)=>{},
 
 });
 

@@ -1,0 +1,61 @@
+.expense{
+    min-width:410px;
+    width:70%;
+    min-height: 60px;
+    margin: auto;
+    background-color: grey;
+    border:3px groove grey;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.expense ul{
+    width:90%;
+    list-style: none;
+    display:flex;
+    margin:0;
+    padding: 0;
+    justify-content: space-evenly;
+}
+.expense li{
+    min-width:100px;
+    max-width: 400px;
+}
+.expense h3{
+    margin:auto;
+    color:aqua;
+}
+
+.controlbutton{
+    width:100px;
+    margin-right: 5px;
+    
+}
+.edit{
+   width:100px;
+   height:22px;
+   background-color:rgb(15, 122, 17);
+   color:white;
+   border:none;
+   border-radius: 10px;
+}
+.edit:hover{
+    background-color: rgb(35, 195, 35);
+    cursor: pointer;
+    border:1px solid white;
+}
+.delete{
+   width:100px;
+   height: 22px;
+   background-color: rgb(177, 16, 16);
+   color:white;
+   border:none;
+   border-radius: 10px;
+}
+.delete:hover{
+    background-color: rgb(254, 5, 5);
+    cursor: pointer;
+    border:1px solid white;
+}

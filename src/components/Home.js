@@ -1,18 +1,22 @@
-import { Fragment, useContext, useRef} from 'react';
+import { Fragment, useContext, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './Home.module.css';
 import AuthContext from '../Store/AuthContext';
+import ExpenseList from './ExpenseList';
 
 const Home=(props)=>{
-    
+    const [KeyValue,setKeyValue]=useState('');
     const ctx=useContext(AuthContext);
     const amountRef=useRef();
     const descriptionRef=useRef();
     const categoryRef=useRef();
 
-
+    
     const ExpenseHandler=async(event)=>{
         event.preventDefault();
+        const index=ctx.expenseData.findIndex(item=>item.key===KeyValue);
+        let flag=false;
+        if(index > -1){flag=true}
        const amount=amountRef.current.value;
        const description=descriptionRef.current.value;
        const category=categoryRef.current.value;
@@ -20,11 +24,11 @@ const Home=(props)=>{
         amount:amount,
         description:description,
         category:category,
-        id:Math.random().toString()
           };
-    await fetch('https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses.json',
+          const url=flag?`https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses/${KeyValue}.json`:`https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses.json`;
+    await fetch(url,
     {
-        method:'POST',
+        method:flag?'PUT':'POST',
         body:JSON.stringify(newExpense),
         headers:{
             'Content-type':'application/json'
@@ -33,8 +37,14 @@ const Home=(props)=>{
     .then(res=>{
         if(res.ok){
             res.json().then(data=>{
-                console.log('Added To expenes',data.name);
-                ctx.AddExpense(data.name)
+                
+                if(flag){
+                    ctx.AddExpense(KeyValue);
+                    setKeyValue(null)
+                }else{
+                    ctx.AddExpense(data.name);
+                }
+                
                 
             })
             
@@ -51,16 +61,13 @@ const Home=(props)=>{
     .catch(err=>console.log('Error',err));
        
     }
-    console.log(ctx.expenseData)
-    const userExpenses=ctx.expenseData.map(item=>
-        <div className={styles.expense} key={item.id}>
-            <ul>
-                <li><h3>Amount:</h3> {item.amount}</li>
-                <li><h3>Description:</h3> {item.description}</li>
-                <li><h3>Category:</h3> {item.category}</li>
-            </ul>
-        </div>
-    );
+    const EditHandler=(body)=>{
+        amountRef.current.value=body.amount;
+        descriptionRef.current.value=body.description;
+        categoryRef.current.value=body.category;
+        setKeyValue(body.key);
+      }
+    const userExpenses=ctx.expenseData.map(itemData=><ExpenseList item={itemData} key={itemData.key} onEdit={EditHandler}/>);
     return (
         <Fragment>
         <div className={styles.headline}>
