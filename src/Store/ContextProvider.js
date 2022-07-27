@@ -15,6 +15,34 @@ const ContextProvider=(props)=>{
             setEmail(emailId);
             setToken(token);
           }
+          const response=async()=>{
+            await fetch('https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses.json/',
+            {
+                method:'GET',
+                headers:{
+                    'Content-type':'application/json'
+                }
+
+            })
+            .then(res=>{
+                if(res.ok){
+                    res.json().then(data=>{   
+                        for(let item in data){
+                           
+                            setExpenses(prev=>[...prev,{...data[item],key:item}])
+                        }                     
+                    })
+                    
+                }else{
+                    return res.json().then(data=>{
+                    let error='Not able to add';
+                    if(data && data.error && data.error.message){
+                        error=data.error.message;
+                    }
+                    alert(error);})}
+            })
+        }
+        response();
     },[])
     const LoginHandler=(data)=>{
         setIsLogin(true);
@@ -27,8 +55,23 @@ const ContextProvider=(props)=>{
         localStorage.removeItem('Email');
         localStorage.removeItem('EmailVerified');
     }
-    const ExpenseHandler=data=>{
-        setExpenses(prev=>[...prev,data]);
+    const ExpenseHandler=async(key)=>{
+        await fetch(`https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses/${key}.json`,
+        {
+            method:'GET',
+            headers:{
+                'Content-type':'application/json'
+            }
+        })
+        .then(res=>{
+            if(res.ok){
+                res.json().then(data=>{
+                    setExpenses(prev=>[...prev,{...data,key:key}]);
+                })
+            }else{
+                return res.json().then(err=>console.log('error in fetching new expense',err))
+            }
+        })
     }
 const contextItem={
     expenseData:expenses,

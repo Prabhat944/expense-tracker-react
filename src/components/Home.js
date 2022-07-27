@@ -1,28 +1,59 @@
-import { Fragment, useContext,useRef} from 'react';
+import { Fragment, useContext, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './Home.module.css';
 import AuthContext from '../Store/AuthContext';
 
 const Home=(props)=>{
+    
     const ctx=useContext(AuthContext);
     const amountRef=useRef();
     const descriptionRef=useRef();
     const categoryRef=useRef();
 
-    const ExpenseHandler=event=>{
+
+    const ExpenseHandler=async(event)=>{
         event.preventDefault();
        const amount=amountRef.current.value;
        const description=descriptionRef.current.value;
        const category=categoryRef.current.value;
-       ctx.AddExpense({
+       const newExpense={
         amount:amount,
         description:description,
         category:category,
         id:Math.random().toString()
-       })
+          };
+    await fetch('https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses.json',
+    {
+        method:'POST',
+        body:JSON.stringify(newExpense),
+        headers:{
+            'Content-type':'application/json'
+        }
+    })
+    .then(res=>{
+        if(res.ok){
+            res.json().then(data=>{
+                console.log('Added To expenes',data.name);
+                ctx.AddExpense(data.name)
+                
+            })
+            
+        }else{
+            return res.json().then(data=>{
+                let error='Not able to add';
+                if(data && data.error && data.error.message){
+                    error=data.error.message;
+                }
+                alert(error);
+            })
+        }
+    })
+    .catch(err=>console.log('Error',err));
+       
     }
+    console.log(ctx.expenseData)
     const userExpenses=ctx.expenseData.map(item=>
-        <div className={styles.expense}>
+        <div className={styles.expense} key={item.id}>
             <ul>
                 <li><h3>Amount:</h3> {item.amount}</li>
                 <li><h3>Description:</h3> {item.description}</li>
@@ -48,7 +79,7 @@ const Home=(props)=>{
                 </div>
                 <div className={styles.description}>
                     <label htmlFor='Description'>Description</label>
-                    <input type='text' required ref={descriptionRef} maxlength = "50"/>
+                    <input type='text' required ref={descriptionRef} maxLength = "50"/>
                 </div>
                 <div className={styles.category}>
                     <label htmlFor='Category'>Category</label>
