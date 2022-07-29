@@ -1,16 +1,15 @@
-import { useContext} from 'react';
 import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import Layout from './components/Navigation/Layout';
 import Profile from './components/Profile';
+import {useSelector} from 'react-redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import AuthContext from './Store/AuthContext';
 import ForgetPassword from './components/ForgetPassword';
 
 function App() {
-  const ctx=useContext(AuthContext);
-  
+  const islogin=useSelector(state=>state.auth.isAuthenticated);
+
   return (
       <Layout>
         <Switch>
@@ -24,10 +23,10 @@ function App() {
           <ForgetPassword />
         </Route>
         <Route path='/home' exact>
-            {ctx.Login && <Home />}
+            {islogin && <Home />}
         </Route>
         <Route path='/profile' exact>
-            {ctx.Login && <Profile /> }
+            {islogin && <Profile /> }
         </Route>
         </Switch>
       </Layout>

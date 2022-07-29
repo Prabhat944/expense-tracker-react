@@ -1,12 +1,19 @@
-import { useContext } from 'react';
-import AuthContext from '../Store/AuthContext';
+import { useDispatch } from 'react-redux';
 import styles from './ExpenseList.module.css';
+import {expenseActions} from '../Store/index';
 
 const ExpenseList=props=>{
-    const ctx=useContext(AuthContext);
+    const dispatch=useDispatch();
    
-    const DeleteHandler=()=>{
-      ctx.DeleteExpense(props.item.key);
+    const DeleteHandler=async()=>{
+      dispatch(expenseActions.deleteexpense(props.item.key));
+      await fetch(`https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses/${props.item.key}.json`,{
+                method:'DELETE',
+              }).then(res=>{
+                console.log("Expense successfully deleted");    
+                })
+              
+       
     }
     return (
         <div className={styles.expense} key={props.item.id}>

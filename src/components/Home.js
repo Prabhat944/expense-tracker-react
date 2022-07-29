@@ -1,22 +1,64 @@
-import { Fragment, useContext, useRef, useState} from 'react';
+import { Fragment, useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './Home.module.css';
-import AuthContext from '../Store/AuthContext';
 import ExpenseList from './ExpenseList';
+import { useDispatch, useSelector} from 'react-redux';
+import {expenseActions,authActions} from '../Store/index';
 
 const Home=(props)=>{
+    const dispatch=useDispatch();
+    const expense=useSelector(state=>state.expense.expense);
+    const TotalExpense=useSelector(state=>state.expense.totalExpense);
+    console.log(TotalExpense);
     const [KeyValue,setKeyValue]=useState('');
-    const ctx=useContext(AuthContext);
     const amountRef=useRef();
     const descriptionRef=useRef();
     const categoryRef=useRef();
+useEffect(()=>{
+    const emailId=localStorage.getItem('Email');
+    const token=localStorage.getItem('Token');
+    const login=localStorage.getItem('Login');
+    if(emailId && token){
+      dispatch(authActions.userid(emailId));
+      dispatch(authActions.token(token));
+      dispatch(authActions.login(login));
+    }
+    const response=async()=>{
+        await fetch('https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expenses.json/',
+        {
+            method:'GET',
+            headers:{
+                'Content-type':'application/json'
+            }
 
+        })
+        .then(res=>{
+            if(res.ok){
+                res.json().then(data=>{  
+                    for(let item in data){
+                        dispatch(expenseActions.addexpense({...data[item],key:item}));
+                    
+                    }                     
+                });
+                
+            }else{
+                return res.json().then(data=>{
+                let error='Not able to add';
+                if(data && data.error && data.error.message){
+                    error=data.error.message;
+                }
+                alert(error);})}
+        })
+    }
+   response();},[dispatch]);
     
     const ExpenseHandler=async(event)=>{
         event.preventDefault();
-        const index=ctx.expenseData.findIndex(item=>item.key===KeyValue);
+        const index=expense.findIndex(item=>item.key===KeyValue);
+
         let flag=false;
-        if(index > -1){flag=true}
+        if(index > -1){flag=true};
+
        const amount=amountRef.current.value;
        const description=descriptionRef.current.value;
        const category=categoryRef.current.value;
@@ -37,15 +79,14 @@ const Home=(props)=>{
     .then(res=>{
         if(res.ok){
             res.json().then(data=>{
-                
-                if(flag){
-                    ctx.AddExpense(KeyValue);
-                    setKeyValue(null)
-                }else{
-                    ctx.AddExpense(data.name);
-                }
-                
-                
+                console.log('data',data)
+                  if(flag){
+                        dispatch(expenseActions.addexpense({...data,key:KeyValue}));
+                        setKeyValue('');
+                  }else{
+                       dispatch(expenseActions.addexpense({...newExpense,key:data.name}));
+                  }
+                    
             })
             
         }else{
@@ -67,7 +108,7 @@ const Home=(props)=>{
         categoryRef.current.value=body.category;
         setKeyValue(body.key);
       }
-    const userExpenses=ctx.expenseData.map(itemData=><ExpenseList item={itemData} key={itemData.key} onEdit={EditHandler}/>);
+    const userExpenses=expense.map(itemData=><ExpenseList item={itemData} key={itemData.key} onEdit={EditHandler}/>);
     return (
         <Fragment>
         <div className={styles.headline}>
@@ -79,6 +120,7 @@ const Home=(props)=>{
         </div>
         </div>
         <div className={styles.expenseContainer}>
+            <div className={styles.premium}>{TotalExpense>10000 && <button>Activate Premium</button>}</div>
             <form className={styles.formContainer} onSubmit={ExpenseHandler}>
                 <div className={styles.amount}>
                     <label htmlFor='Amount'>Amount</label>

@@ -1,9 +1,10 @@
 import styles from './Login.module.css';
-import {useContext, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import AuthContext from '../Store/AuthContext';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../Store';
 const Login=(props)=>{
-    const ctx=useContext(AuthContext)
+    const dispatch=useDispatch();
     const userEmailRef=useRef();
     const userPasswordRef=useRef();
     const userConfirmPasswordRef=useRef();
@@ -39,7 +40,9 @@ const Login=(props)=>{
            if(res.ok){
                res.json().then(data=>{
                 isLogin?console.log(" User has successfully Logged In"):console.log(" User has successfully Sign Up");
-                ctx.UserLogin(data);
+                dispatch(authActions.login(true));
+                dispatch(authActions.token(data.idToken))
+                dispatch(authActions.userid(data.email));
                 history.replace('/home')
             });
                

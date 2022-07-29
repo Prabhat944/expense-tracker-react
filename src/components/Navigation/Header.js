@@ -1,13 +1,15 @@
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import AuthContext from '../../Store/AuthContext';
+import { authActions } from '../../Store';
 import styles from './Header.module.css';
 const Header=()=>{
-     const ctx=useContext(AuthContext);
+    const dispatch=useDispatch();
+     const islogin=useSelector(state=>state.auth.isAuthenticated);
+
      const history=useHistory();
      const UserStateHandler=()=>{
-        if(ctx.Login){
-            ctx.UserLogOut();
+        if(islogin){
+            dispatch(authActions.logout())
         }
             history.replace('/login');
      }
@@ -19,7 +21,7 @@ const Header=()=>{
             <li>Products</li>
             <li>About Us</li>
         </ul>
-        <button className={styles.userState} onClick={UserStateHandler}>{ctx.Login?'Logout':'Login'}</button>
+        <button className={styles.userState} onClick={UserStateHandler}>{islogin?'Logout':'Login'}</button>
         </header>
     );
 };
