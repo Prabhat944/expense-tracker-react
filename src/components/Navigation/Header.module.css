@@ -5,12 +5,31 @@
     color:black;
     display: inline-flex;
     align-items: center;
-    position: fixed;
+    position:sticky;
     top:0;
-    z-index: 20;
+    z-index: 999;
+}
+.darkheader{
+    width:100vw;
+    height:40px;
+    background-color:rgb(80, 80, 80);
+    color:white;
+    display: inline-flex;
+    align-items: center;
+    position: sticky;
+    top:0;
+    z-index:999;
+}
+.darkheader h1{
+    font-size: 1.5rem;
+    margin-left: 20px;
+    color: wheat;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
 .header h1{
  font-size: 1.5rem;
+ margin-left: 20px;
  color: rgb(0, 153, 255);
  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -20,6 +39,12 @@
    gap: 40px;
    font-size: 1.2rem;
 }
+.darkheader ul{
+    list-style-type: none; 
+    display: flex;
+    gap: 40px;
+    font-size: 1.2rem;
+ }
 .userState{
     position: relative;
     left:5%;
@@ -33,4 +58,19 @@
     background-color:rgb(67, 145, 208) ;
     color:white;
     cursor: pointer;
+}
+.darkuserState{
+    position: relative;
+    left:5%;
+    border:1px solid rgb(183, 181, 181);
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    color:rgb(183, 181, 181);
+}
+.darkuserState:hover{
+    background-color:transparent ;
+    color:white;
+    cursor: pointer;
+    border:1px solid white;
 }

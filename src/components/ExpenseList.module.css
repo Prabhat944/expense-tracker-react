@@ -1,7 +1,7 @@
 .expense{
     min-width:410px;
-    width:70%;
-    min-height: 60px;
+    width:80%;
+    min-height: 80px;
     margin: auto;
     background-color: grey;
     border:3px groove grey;
@@ -22,23 +22,30 @@
 .expense li{
     min-width:100px;
     max-width: 400px;
+    font-size: 20px;
+    font-weight: bold;
 }
 .expense h3{
-    margin:auto;
+    margin:0;
     color:aqua;
 }
 
 .controlbutton{
     width:100px;
     margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:10px;
     
 }
 .edit{
    width:100px;
-   height:22px;
+   height:25px;
    background-color:rgb(15, 122, 17);
    color:white;
    border:none;
+   font-weight: bold;
    border-radius: 10px;
 }
 .edit:hover{
@@ -48,13 +55,79 @@
 }
 .delete{
    width:100px;
+   height: 25px;
+   background-color: rgb(177, 16, 16);
+   color:white;
+   border:none;
+   font-weight: bold;
+   border-radius: 10px;
+}
+.delete:hover{
+    background-color: rgb(254, 5, 5);
+    cursor: pointer;
+    border:1px solid white;
+}
+
+.darkexpense{
+    min-width:410px;
+    width:80%;
+    min-height: 80px;
+    margin:auto;
+    background-color: grey;
+    border:3px groove grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.darkexpense ul{
+    width:90%;
+    list-style: none;
+    display:flex;
+    margin:0;
+    padding: 0;
+    justify-content: space-evenly;
+}
+.darkexpense li{
+    min-width:100px;
+    max-width: 400px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.darkexpense h3{
+    margin:auto;
+    color:rgb(6, 6, 6);
+}
+
+.darkcontrolbutton{
+    width:100px;
+    margin-right: 5px;
+    
+}
+.darkedit{
+   width:100px;
+   height:22px;
+   background-color:rgb(15, 122, 17);
+   color:white;
+   border:none;
+   border-radius: 10px;
+}
+.darkedit:hover{
+    background-color: rgb(35, 195, 35);
+    cursor: pointer;
+    border:1px solid white;
+}
+.darkdelete{
+   width:100px;
    height: 22px;
    background-color: rgb(177, 16, 16);
    color:white;
    border:none;
    border-radius: 10px;
 }
-.delete:hover{
+.darkdelete:hover{
     background-color: rgb(254, 5, 5);
     cursor: pointer;
     border:1px solid white;

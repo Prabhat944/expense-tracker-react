@@ -1,7 +1,8 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit';
 
 const Login=localStorage.getItem('Login');
-const initialAuthState={isAuthenticated:Login?true:false,token:'',userId:''};
+
+const initialAuthState={isAuthenticated:Login?true:false,token:'',userId:'',premium:false,premid:''};
 
 
 const authSlice=createSlice({
@@ -23,6 +24,12 @@ const authSlice=createSlice({
         userid(state,action){
             state.userId=action.payload;
             localStorage.setItem('Email',action.payload);
+        },
+        premiumuser(state,action){
+            state.premium=true;
+            state.premid=action.payload;
+            console.log(state.premid,action.payload)
+            localStorage.setItem('Premium',true);
         }
     }
 });
@@ -56,10 +63,19 @@ const expenseSlice=createSlice({
     }
 })
 
-const store=configureStore({
-    reducer:{auth:authSlice.reducer,expense:expenseSlice.reducer}
+const themeSlice=createSlice({
+    name:'theme',
+    initialState:{darktheme:false},
+    reducers:{
+        changetheme(state){
+            state.darktheme=!state.darktheme;
+        }
+    }
 });
-
+const store=configureStore({
+    reducer:{auth:authSlice.reducer,expense:expenseSlice.reducer,theme:themeSlice.reducer}
+});
+export const themeActions=themeSlice.actions;
 export const expenseActions=expenseSlice.actions;
 export const authActions=authSlice.actions;
 export default store;

@@ -1,16 +1,15 @@
 .headline{
-    position: relative;
-    min-height: 3rem;
+    display: flex;
+    min-height:60px;
     border-bottom: 2px solid gray;
+    justify-content: space-between;
+    align-items: center;
     z-index: 10;
 }
 .headline h3{
     margin-left: 50px;
 }
 .profile{
-    position: absolute;
-    right:0;
-    top:0;
     font-size: 1rem;
     width:30rem;
     height:fit-content;
@@ -19,7 +18,6 @@
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color:rgb(247, 211, 247) ;
-    z-index: 10;
 }
 .profile button{
     border:none;
@@ -27,19 +25,39 @@
     font-size: 1rem;
     color:blue;
     font-weight:bold;
+    cursor: pointer;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-.profile button:hover{
-    cursor: pointer;
+.profilebox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: fit-content;
+    padding-left: 30px;
+    padding-right: 50px;
+}
+.verify{
+    min-width:300px;
+    min-height:80px;
+    display: flex;
+    align-items: center;
+    border: 2px solid gray;
+    border-radius: 10px;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.contactform{
+    display:flex;
+    flex-direction: column;
+    height:fit-content;
+
 }
 .contacts{
-    width:680px;
+    display: flex;
+    flex-direction: column;
     min-height:11rem;
     border-bottom: 2px solid gray;
-    position: absolute;
-    right:70px;
-    top:60px;
-    z-index: 10;
 }
 .details{
     display: flex;
@@ -53,28 +71,26 @@
     font-weight: bold;
     color:red;
     background-color: white;
-    margin-top: 20px;
     border: 3px solid red;
     border-radius: 10px;
+    margin-top: 15px;
 }
 .details button:hover{
     background-color: red;
     color:white;
     cursor: pointer;
 }
-.contactform{
-    display:flex;
-    width:100%;
-    height:fit-content;
-    gap:7%;
-    padding-left: 6%;
-
+.forminput{
+    display: flex;
+    margin-bottom: 10px;
 }
 .name,
 .url{
     display: flex;
+    align-items: center;
     font-size: 0.8rem;
     font-weight: bold;
+    gap:10px;
 }
 .name input,
 .url input{
@@ -82,6 +98,7 @@
     height:25px;
     border-radius: 5px;
     font-size: 1rem;
+    margin-right: 30px;
 }
 .update button{
     width:70px;
@@ -90,9 +107,7 @@
     font-weight: bold;
     color:white;
     border: none;
-    position: absolute;
-    top:8.5rem;
-    left:10%;
+    margin-top: 20px;
     background-color: rgb(170, 78, 78);
     border-radius: 10px;
 }
@@ -100,37 +115,130 @@
     background-color: brown;
     cursor: pointer;
 }
-.verify{
-    width:300px;
-    margin: 20px;
+.darkheadline{
+    display: flex;
+    min-height:60px;
+    border-bottom: 2px solid white;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    color:white;
+}
+.darkheadline h3{
+    margin-left: 50px;
+}
+.darkprofile{
+    font-size: 1rem;
+    width:30rem;
+    height:fit-content;
+    border-radius: 18px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color:rgb(145, 141, 145) ;
+}
+.darkprofile button{
+    border:none;
+    background-color: transparent;
+    font-size: 18px;
+    color:blue;
+    cursor: pointer;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.darkprofilebox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: fit-content;
+    padding-left: 30px;
+    padding-right: 50px;
+}
+.darkverify{
+    min-width:300px;
     min-height:80px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    border: 2px solid gray;
-    border-radius: 5px;
-}
-.verify button{
-    height:25px;
-    margin-left: 10px;
-    border-radius: 5px;
-    background-color: rgb(92, 92, 233);
+    border: 2px solid white;
+    border-radius: 10px;
+    justify-content: center;
+    font-size: 20px;
     color:white;
     font-weight: bold;
 }
-@media(max-width:1050px){
-    .contacts{
-        left:5%;
-        top:200px;
-    }
+.darkcontacts{
+    display: flex;
+    flex-direction: column;
+    min-height:11rem;
+    border-bottom: 3px solid white;
+    color:white;
+}
+.darkdetails{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+.darkcontactform{
+    display:flex;
+    flex-direction: column;
+    height:fit-content;
 
 }
+.darkdetails button{
+    width:70px;
+    height:30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color:red;
+    background-color: white;
+    border: 3px solid red;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+.darkdetails button:hover{
+    background-color: red;
+    color:white;
+    cursor: pointer;
+}
+.darkforminput{
+    display: flex;
+    margin-bottom: 10px;
+}
+.darkname,
+.darkurl{
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    gap:10px;
+}
+.darkname input,
+.darkurl input{
+    width:200px;
+    height:25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-right: 30px;
+}
+
+.darkupdate button{
+    width:70px;
+    height:30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color:white;
+    border: none;
+    margin-top: 20px;
+    background-color: rgb(170, 78, 78);
+    border-radius: 10px;
+}
+.darkupdate button:hover{
+    background-color: brown;
+    cursor: pointer;
+}
+@media(max-width:1050px){
+   
+}
 @media(max-width:830px){
-    .headline{
-      height:6rem;
-    }
-    .profile{
-        top: 40px;
-        left:20px;
-    }
+    
 }

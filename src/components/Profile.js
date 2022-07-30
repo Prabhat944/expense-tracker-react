@@ -1,9 +1,11 @@
 import styles from './Profile.module.css';
 import {useEffect, useRef,useState} from 'react';
+import { useSelector } from 'react-redux';
 
 const Profile=props=>{
     const [IsLoading,setIsLoading]=useState(false);
     const [Emailverified,setEmailVerified]=useState(false);
+    const darkOne=useSelector(state=>state.theme.darktheme);
     const userNameRef=useRef();
     const userUrlRef=useRef();
     useEffect(()=>{
@@ -92,37 +94,41 @@ const Profile=props=>{
     }
     return (
         <div>
-        <div className={styles.headline}>
+        <div className={darkOne?styles.darkheadline:styles.headline}>
             <h3>Winners never quite,Quitters never win.</h3>
-            <div className={styles.profile}>
+            <div className={darkOne?styles.darkprofile:styles.profile}>
                 Your Profile is 64% complete.A complete Profile has higher chances of landing a job.
                 <button>Complete now</button>
             </div>
         </div>
-        <div className={styles.contacts}>
-            <div className={styles.details}>
+        <div className={darkOne?styles.profilebox:styles.profilebox}>
+        <div className={darkOne?styles.darkverify:styles.verify}>
+           <div className={styles.verified}>{Emailverified ?'Your Email is Verified': "Your Email is Not Verified"}</div>
+           {!Emailverified && <div className={styles.notverified}><button onClick={EmailVerifiedHandler}>{IsLoading ?'Verifying...' :"Verify Now"}</button></div>}
+           
+        </div>
+        <div className={darkOne?styles.darkcontacts:styles.contacts}>
+            <div className={darkOne?styles.darkdetails:styles.details}>
                 <h2>Contact Details</h2>
                 <button>Cancel</button>
             </div>
-            <form className={styles.contactform} onSubmit={contactFormHandler}>
-                <div className={styles.name}>
+            <form className={darkOne?styles.darkcontactform:styles.contactform} onSubmit={contactFormHandler}>
+                <div className={styles.forminput}>
+                <div className={darkOne?styles.darkname:styles.name}>
                     <label>Full Name:</label>
                     <input type='text' ref={userNameRef} required />
                 </div>
-                <div className={styles.url}>
+                <div className={darkOne?styles.darkurl:styles.url}>
                     <label>Profile Photo URL</label>
                     <input type='url' ref={userUrlRef} required />
                 </div>
-                <div className={styles.update}>
+                </div>
+                <div className={darkOne?styles.darkupdate:styles.update}>
                     <button >Update</button>
                 </div>
             </form>
             
         </div>
-        <div className={styles.verify}>
-           {Emailverified ?<h2>Your Email is Verified</h2>: "Your Email is Not Verified"}
-           {!Emailverified && <button onClick={EmailVerifiedHandler}>{IsLoading ?'Verifying...' :"Verify Now"}</button>}
-           
         </div>
         </div>
     );

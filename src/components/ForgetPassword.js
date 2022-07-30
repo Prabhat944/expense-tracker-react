@@ -1,10 +1,12 @@
 import {useRef, useState} from 'react';
+import { useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
 import styles from './ForgetPassword.module.css';
 const ForgetPassword=()=>{
     const [IsLoading,setIsLoading]=useState(false);
     const emailRef=useRef();
-  const ForgetPasswordHandler=async(event)=>{
+    const darkOne=useSelector(state=>state.theme.darktheme);
+    const ForgetPasswordHandler=async(event)=>{
     event.preventDefault();
     const email=emailRef.current.value;
     setIsLoading(true);
@@ -35,11 +37,11 @@ const ForgetPassword=()=>{
        })
   }
     return (
-        <div className={styles.background}>
-            <img src='background.JPG' alt='expenses_jpg' className={styles.backimage}/>
-            <div className={styles.center}>
-            <img src='center.PNG' alt='checkList_jpg'/>
-            <form className={styles.container} onSubmit={ForgetPasswordHandler}>
+        <div className={darkOne?styles.darkbackground:styles.background}>
+            <img src={darkOne?'darkback.jpg':'light.jpg'} alt='backgroundImage' className={darkOne?styles.darkbackimage:styles.backimage}/>
+            <div className={darkOne?styles.darkcenter:styles.center}>
+            <img src={darkOne?'darkcenter.jpg':'lightcenter.jpg'} alt='checkList_jpg'/>
+            <form className={darkOne?styles.darkcontainer:styles.container} onSubmit={ForgetPasswordHandler}>
                 {IsLoading && <p>Please Wait Loading...</p>}
                 <label>Email the email with which you have registered.</label>
                 <input type='email' required ref={emailRef} placeholder='Email'/>

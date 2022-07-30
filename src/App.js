@@ -1,4 +1,3 @@
-import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import Layout from './components/Navigation/Layout';

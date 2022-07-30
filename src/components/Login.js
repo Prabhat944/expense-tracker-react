@@ -1,10 +1,11 @@
 import styles from './Login.module.css';
 import {useRef, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../Store';
 const Login=(props)=>{
     const dispatch=useDispatch();
+    const darkOne=useSelector(state=>state.theme.darktheme);
     const userEmailRef=useRef();
     const userPasswordRef=useRef();
     const userConfirmPasswordRef=useRef();
@@ -66,22 +67,22 @@ const Login=(props)=>{
    }
     return (
         <div>
-            <img className={styles.style} src='corner.JPG' alt='corner'/>
-            <form className={styles.container} onSubmit={FormSubmitHandler}>
+            <img className={darkOne?styles.darkstyle:styles.style} src={darkOne?'darkcorner.png':'corner.JPG'} alt='corner'/>
+            <form className={darkOne?styles.darkcontainer:styles.container} onSubmit={FormSubmitHandler}>
                 <h2>{isLogin? 'LogIn':'SignUp'}</h2>
-                <div className={styles.email}>
+                <div className={darkOne?styles.darkemail:styles.email}>
                     <input type='email' placeholder='Email' required ref={userEmailRef}/>
                 </div>
-                <div className={styles.password}>
+                <div className={darkOne?styles.darkpassword:styles.password}>
                     <input type='password' placeholder='Password' required ref={userPasswordRef}/>
                 </div>
-                <div className={styles.password}>
+                <div className={darkOne?styles.darkpassword:styles.password}>
                     {!isLogin && <input type='password' placeholder='ConfirmPassword' required ref={userConfirmPasswordRef}/>}
                 </div>
-                {isLoading? <h3>Loading...</h3>:<button className={styles.loginbutton}>{isLogin? 'Login':'Sign up'}</button>}
+                {isLoading? <h3>Loading...</h3>:<button className={darkOne?styles.darkloginbutton:styles.loginbutton}>{isLogin? 'Login':'Sign up'}</button>}
                 {isLogin && <Link to='/forgetPassword' >Forget Password</Link>}
             </form>
-            <div className={styles.usertype}>
+            <div className={darkOne?styles.darkusertype:styles.usertype}>
                 <button href='' onClick={IsLoginHandler}>{isLogin? "Don't have an account? Signup":'Have an account? Login'}</button>
             </div>
         </div>

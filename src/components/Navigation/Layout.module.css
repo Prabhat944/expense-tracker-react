@@ -1,7 +1,48 @@
 .section{
     width:100vw;
-    height:93vh;
+    height:calc(100vh - 40px);
     position: relative;
-    top:40px;
-    right:0;
+}
+.darksection{
+    width:100vw;
+    min-height:calc(100vh - 40px);
+    position: relative;
+    background-color: rgb(34, 31, 31);
+}
+.themechangerbutton{
+    position: absolute;
+    width:150px;
+    height:30px;
+    background-color: grey;
+    z-index: 999;
+    right:10px;
+    bottom: 10px;
+    text-align: center;
+    border-radius: 3px;
+    border:2px solid black;
+    font-weight: bold;
+}
+.themechangerbutton:hover{
+    background-color: rgb(32, 30, 30);
+    color:white;
+    cursor: pointer;
+}
+.darkthemechangerbutton{
+    position: absolute;
+    width:150px;
+    height:30px;
+    background-color: grey;
+    z-index: 999;
+    right:10px;
+    bottom: 10px;
+    text-align: center;
+    border-radius: 3px;
+    border:2px solid white;
+    font-weight: bold;
+    color:white;
+}
+.darkthemechangerbutton:hover{
+    background-color: white;
+    color:black;
+    cursor: pointer;
 }
