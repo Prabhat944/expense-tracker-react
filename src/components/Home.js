@@ -4,7 +4,8 @@ import styles from './Home.module.css';
 import ExpenseList from './ExpenseList';
 import { CSVLink } from "react-csv";
 import { useDispatch, useSelector} from 'react-redux';
-import {expenseActions,authActions} from '../Store/index';
+import { authActions } from '../Store/auth';
+import { expenseActions } from '../Store/expense';
 
 const Home=(props)=>{
     const dispatch=useDispatch();

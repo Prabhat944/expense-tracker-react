@@ -2,7 +2,7 @@ import styles from './Login.module.css';
 import {useRef, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions } from '../Store';
+import { authActions } from '../Store/auth';
 const Login=(props)=>{
     const dispatch=useDispatch();
     const darkOne=useSelector(state=>state.theme.darktheme);

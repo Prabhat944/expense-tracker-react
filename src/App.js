@@ -10,6 +10,7 @@ function App() {
   const islogin=useSelector(state=>state.auth.isAuthenticated);
 
   return (
+    
       <Layout>
         <Switch>
           <Route path='/' exact>
