@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { authActions } from '../../Store/auth';
-
+import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
-const Header=()=>{
+
+
+const Header=(props)=>{
     const dispatch=useDispatch();
-     const islogin=useSelector(state=>state.auth.isAuthenticated);
      const darkOne=useSelector(state=>state.theme.darktheme);
 
      const history=useHistory();
      const UserStateHandler=()=>{
-        if(islogin){
+        if(props.islogin){
             dispatch(authActions.logout())
         }
             history.replace('/login');
@@ -19,11 +20,11 @@ const Header=()=>{
         <header className={darkOne?styles.darkheader:styles.header}>
         <h1>MyWebLink</h1>
         <ul>
-            <li>Home</li>
-            <li>Products</li>
-            <li>About Us</li>
+            <li><NavLink to='/login/home'>Home</NavLink></li>
+            <li><NavLink to='/login/prod'>Products</NavLink></li>
+            <li><NavLink to='/login/about'>About Us</NavLink></li>
         </ul>
-        <button className={darkOne?styles.darkuserState:styles.userState} onClick={UserStateHandler}>{islogin?'Logout':'Login'}</button>
+        <button className={darkOne?styles.darkuserState:styles.userState} onClick={UserStateHandler}>{props.islogin?'Logout':'Login'}</button>
         </header>
     );
 };

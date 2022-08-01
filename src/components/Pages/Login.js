@@ -1,68 +1,55 @@
 import styles from './Login.module.css';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions } from '../Store/auth';
+import { LoginToServer, SignUpToServer } from '../../Store/LoginServerData';
+
+
 const Login=(props)=>{
     const dispatch=useDispatch();
     const darkOne=useSelector(state=>state.theme.darktheme);
     const userEmailRef=useRef();
     const userPasswordRef=useRef();
     const userConfirmPasswordRef=useRef();
-
     const [isLogin,setIsLogin]=useState(false);
     const [isLoading,setIsLoading]=useState(false);
     const history=useHistory();
+
+    useEffect(()=>{
+       
+       
+    },[dispatch]);
+
     const IsLoginHandler=()=>{
         setIsLogin(prev=>!prev);
     }
-   const FormSubmitHandler=event=>{
+
+   const FormSubmitHandler=(event)=>{
     event.preventDefault();
     const email=userEmailRef.current.value;
     const password=userPasswordRef.current.value;
     const confirmPassword=isLogin ? '':userConfirmPasswordRef.current.value;
     setIsLoading(true);
-    const URL=isLogin?'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE':'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE';
-    if(password === confirmPassword || isLogin){
-       fetch(URL,
-       {
-        method:'POST',
-        body:JSON.stringify({
+    if(!isLogin && password !== confirmPassword){
+        alert('Password Not Matched')
+        return;
+    }
+    if(isLogin){
+        dispatch(LoginToServer({
             email:email,
             password:password,
             returnSecureToken:true
-        }),
-        headers:{
-            'Content-Type':'application/json'
-        }
-       })
-       .then(res=>{
-        setIsLoading(false);
-           if(res.ok){
-               res.json().then(data=>{
-                isLogin?console.log(" User has successfully Logged In"):console.log(" User has successfully Sign Up");
-                dispatch(authActions.login(true));
-                dispatch(authActions.token(data.idToken))
-                dispatch(authActions.userid(data.email));
-                history.replace('/home')
-            });
-               
-               
-                }
-            else{
-                return res.json().then(data=>{
-                    let errorMessage='Authenication failed';
-                    if(data && data.error && data.error.message){
-                        errorMessage=data.error.message;
-                    }
-                    alert(errorMessage);
-                    })}})
-       .catch(err=>{
-        console.log('Error',err)})
+        }));
     }else{
-        alert('Entered Password are not same!!!');
-        return;
+        dispatch(SignUpToServer({
+            email:email,
+            password:password,
+            returnSecureToken:true
+        }
+        ))
     }
+    history.replace('/login/home');
+   
 
    }
     return (

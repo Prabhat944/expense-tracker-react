@@ -1,20 +1,49 @@
-import Home from './components/Home';
-import Login from './components/Login';
+import Login from '../src/components/Pages/Login';
 import Layout from './components/Navigation/Layout';
-import Profile from './components/Profile';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import ForgetPassword from './components/ForgetPassword';
+import ForgetPassword from './components/Pages/ForgetPassword';
+import { useEffect } from 'react';
+import { ExpenseToServer, FetchFromServer } from './Store/ServerData';
+import { authActions } from './Store/auth';
+import Profile from './components/Pages/Profile';
+import Home from './components/Pages/Home';
+import NotReady from './components/Pages/NotReady';
+
+
+let onStart=true;
 
 function App() {
-  const islogin=useSelector(state=>state.auth.isAuthenticated);
+  const dispatch=useDispatch();
+  const cartupdate=useSelector(state=>state.expense.cartupdate);
+  const expense=useSelector(state=>state.expense.expense);
+  const totalExpense=useSelector(state=>state.expense.totalExpense);
+  const login=useSelector(state=>state.auth.isAuthenticated);
 
+
+useEffect(()=>{
+  if(onStart && login){
+    onStart=false;
+    dispatch(FetchFromServer());
+  }
+  if(!login && onStart){
+    dispatch(authActions.loginhandler({
+      isAuthenticated:localStorage.getItem('Login')||false,
+      userId:localStorage.getItem('userId')||'',
+      token:localStorage.getItem('Token')||''
+    }));
+  }
+  
+if(cartupdate){
+  dispatch(ExpenseToServer({expense:expense,totalExpense:totalExpense}))
+}
+},[cartupdate,dispatch,expense,totalExpense,login]);
+console.log(login)
   return (
-    
-      <Layout>
+      <Layout islogin={login}>
         <Switch>
           <Route path='/' exact>
-            <Redirect to='/login' />
+            <Redirect path='/login' />
           </Route>
         <Route path='/login' exact>
              <Login />
@@ -22,12 +51,15 @@ function App() {
         <Route path='/forgetpassword' exact>
           <ForgetPassword />
         </Route>
-        <Route path='/home' exact>
-            {islogin && <Home />}
+        <Route path='/login/profile' exact>
+            <Profile />
         </Route>
-        <Route path='/profile' exact>
-            {islogin && <Profile /> }
+        <Route path='/login/home' exact>
+            <Home />
         </Route>
+        <Route path='*' >
+            <NotReady />
+          </Route>
         </Switch>
       </Layout>
   );

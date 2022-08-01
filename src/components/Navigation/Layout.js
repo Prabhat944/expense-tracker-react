@@ -8,14 +8,13 @@ const Layout=(props)=>{
     const darkOne=useSelector(state=>state.theme.darktheme);
     const dispatch=useDispatch();
     const premium=useSelector(state=>state.auth.premium);
-    const premid=useSelector(state=>state.auth.premid);
     const ChangeTheme=()=>{
    dispatch(themeActions.changetheme());
      }
     return(
         <Fragment>
-        <Header/>
-        {premium && premid && <button 
+        <Header islogin={props.islogin}/>
+        {premium && <button 
         onClick={ChangeTheme} 
         className={darkOne?styles.darkthemechangerbutton:styles.themechangerbutton}>
           {darkOne?'Light Theme':'Dark Theme'}

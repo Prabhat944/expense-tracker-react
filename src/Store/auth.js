@@ -1,35 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const Login=localStorage.getItem('Login');
-
-const initialAuthState={isAuthenticated:Login?true:false,token:'',userId:'',premium:false,premid:''};
+const initialAuthState={isAuthenticated:false,token:'',userName:'',userId:'',imageUrl:'',emailVerified:false,premium:false};
 
 
 const authSlice=createSlice({
     name:'auth',
     initialState:initialAuthState,
     reducers:{
-        login(state,action){
-            state.isAuthenticated=action.payload;  
-            localStorage.setItem('Login',action.payload); 
+        loginhandler(state,action){
+            state.isAuthenticated=action.payload.isAuthenticated; 
+            state.userId=action.payload.userId;
+            state.token=action.payload.token;
+            localStorage.setItem('Login',action.payload.isAuthenticated);
+            localStorage.setItem('Token',action.payload.token);
+            localStorage.setItem('userId',action.payload.userId); 
+             console.log(action.payload)
         },
         logout(state){
             state.isAuthenticated=false;
             localStorage.clear();
         },
-        token(state,action){
-            state.token=action.payload;
-            localStorage.setItem('Token',action.payload);
-        },
-        userid(state,action){
-            state.userId=action.payload;
-            localStorage.setItem('Email',action.payload);
-        },
         premiumuser(state,action){
             state.premium=true;
-            state.premid=action.payload;
-            console.log(state.premid,action.payload)
-            localStorage.setItem('Premium',true);
+        },
+        userpersonalinfo(state,action){
+            state.userName=action.payload.displayName;
+            state.imageUrl=action.payload.photoUrl;
+            state.emailVerified=action.payload.emailVerified
+        
         }
     }
 });

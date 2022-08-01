@@ -5,16 +5,9 @@ import {expenseActions} from '../Store/expense';
 const ExpenseList=props=>{
     const dispatch=useDispatch();
     const darkOne=useSelector(state=>state.theme.darktheme);
-    const userId=useSelector(state=>state.auth.userId);
-    const user=userId.replace(/[.@]/g , '');
    
     const DeleteHandler=async()=>{
-      dispatch(expenseActions.deleteexpense(props.item.key));
-      await fetch(`https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/${user}/expenses/${props.item.key}.json`,{
-                method:'DELETE',
-              }).then(res=>{
-                console.log("Expense successfully deleted");    
-                })
+      dispatch(expenseActions.deleteexpense(props.item.description));
               
        
     }
