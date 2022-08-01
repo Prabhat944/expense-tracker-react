@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './ExpenseList.module.css';
-import {expenseActions} from '../Store/expense';
+import {expenseActions} from '../../../Store/expense';
 
 const ExpenseList=props=>{
     const dispatch=useDispatch();

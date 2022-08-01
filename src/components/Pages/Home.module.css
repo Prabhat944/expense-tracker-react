@@ -41,77 +41,7 @@
     width:100%;
     
 }
-.formContainer{
-   width:400px;
-   height:300px;
-   border:3px solid grey;
-   border-radius: 10px;
-   margin:auto;
-   margin-top: 30px;
-   text-align: center;
-   font-size: 1rem;
-   font-weight: bold;
-   background-color: rgb(159, 235, 235);
-   padding-top: 10px;
-}
-.amount{
-   display: flex;
-   flex-direction: column;
-}
-.amount input,
-.description input{
-    width:300px;
-    height:25px;
-    text-align: center;
-    margin: auto;
-    border-radius: 10px;
-    border:3px groove grey;
-    font-size: 1rem;
-    margin-bottom: 15px;
-}
-.description{
-    display: flex;
-    flex-direction: column;
-}
-.category{
-    display: flex;
-    flex-direction: column;
-}
-.category select{
-    width:310px;
-    height:32px;
-    text-align: center;
-    margin: auto;
-    border:3px groove grey;
-    border-radius: 10px;
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-.formContainer button{
-    width:150px;
-    height:30px;
-    border-radius: 5px;
-    background-color: rgb(63, 63, 238);
-    color:white;
-    font-weight: bold;
-    border: none;
-}
-.formContainer button:hover{
-    background-color: rgb(10, 10, 247);
-    cursor: pointer;
-    border:2px solid white;
-}
-.userExpenses{
-    min-width: 420px;
-    width:70%;
-    background-color: rgba(0, 0, 0, 0.373);
-    color: white;
-    margin: auto;
-    border-radius: 10px;
-    border:3px groove grey;
-    margin-top: 20px;
-    padding:10px 0;
-}
+
 .premium{
     width: fit-content;
     margin: auto;
@@ -171,77 +101,8 @@
     width:100%;
     
 }
-.darkformContainer{
-   width:400px;
-   height:300px;
-   border:3px solid grey;
-   border-radius: 10px;
-   margin:auto;
-   margin-top: 30px;
-   text-align: center;
-   font-size: 1rem;
-   font-weight: bold;
-   background-color: grey;
-   padding-top: 10px;
-}
-.darkamount{
-   display: flex;
-   flex-direction: column;
-}
-.darkamount input,
-.darkdescription input{
-    width:300px;
-    height:25px;
-    text-align: center;
-    margin: auto;
-    border-radius: 10px;
-    border:3px groove grey;
-    font-size: 1rem;
-    margin-bottom: 15px;
-}
-.darkdescription{
-    display: flex;
-    flex-direction: column;
-}
-.darkcategory{
-    display: flex;
-    flex-direction: column;
-}
-.darkcategory select{
-    width:310px;
-    height:32px;
-    text-align: center;
-    margin: auto;
-    border:3px groove grey;
-    border-radius: 10px;
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-.darkformContainer button{
-    width:150px;
-    height:30px;
-    border-radius: 5px;
-    background-color: rgb(63, 63, 238);
-    color:white;
-    font-weight: bold;
-    border: none;
-}
-.darkformContainer button:hover{
-    background-color: rgb(10, 10, 247);
-    cursor: pointer;
-    border:2px solid white;
-}
-.darkuserExpenses{
-    min-width: 420px;
-    width:70%;
-    background-color: rgb(19, 18, 18);
-    color: white;
-    margin: auto;
-    border-radius: 10px;
-    border:3px groove grey;
-    margin-top: 20px;
-    padding:10px 0;
-}
+
+
 .darkpremium{
     width: fit-content;
     margin: auto;
