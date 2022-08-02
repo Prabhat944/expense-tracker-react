@@ -14,13 +14,13 @@ const expenseSlice=createSlice({
         addexpense(state,action){
             state.cartupdate=true;
             const newExpense=action.payload;
-            const existing=state.expense.find(item=>item.description === newExpense.description);
+            const existing=state.expense.find(item=>item.itemkey === newExpense.itemkey);
             if(!existing){
                 state.expense.push({...newExpense});
                 state.totalExpense=state.totalExpense + Number(newExpense.amount);
             }
             else{
-            const index=state.expense.findIndex(item=>item.description === newExpense.description);
+            const index=state.expense.findIndex(item=>item.itemkey === newExpense.itemkey);
             state.totalExpense=state.totalExpense + Number(newExpense.amount) - Number(state.expense[index].amount);
             state.expense[index]=newExpense;
             console.log(state.expense);
@@ -29,10 +29,9 @@ const expenseSlice=createSlice({
         },
         deleteexpense(state,action){
             state.cartupdate=true;
-            const description=action.payload;
-            const index=state.expense.findIndex(item=>item.description===description);
-            state.totalExpense=state.totalExpense - Number(state.expense[index].amount);
-            state.expense=state.expense.filter(item=>item.description !== description);
+            const requestedItem=action.payload;
+            state.totalExpense=state.totalExpense - Number(requestedItem.amount);
+            state.expense=state.expense.filter(item=>item.itemkey !== requestedItem.itemkey);
         },
         clearexpense(state){
             state.expense=[];

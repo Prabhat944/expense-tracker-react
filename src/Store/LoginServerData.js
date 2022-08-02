@@ -1,34 +1,39 @@
 import { authActions } from "./auth";
 
-export const LoginToServer=(logindata)=>{
-    return async(dispatch)=>{
-        const FetchingInfo=async()=>{
-            const response=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE',{
-                method:'POST',
-                body:JSON.stringify(logindata),
-                headers:{
-                    'Content-Type':'applications/json'
-                }
-            });
-            if(!response.ok){
-                throw new Error('Unable to login');
-            }
-            const data=response.json();
-            return data;
-        }
-        try{
-            const userinfo=await FetchingInfo();
-            console.log('Successfully login')
-            dispatch(authActions.loginhandler({
-                isAuthenticated:userinfo.registered,
-                userId:userinfo.email,
-                token:userinfo.idToken,
-            }));   
-        }catch(error){
-            console.log('Error in Fetching data',error);
-        }
-    }
-};
+// export const LoginToServer=(logindata)=>{
+//     return async(dispatch)=>{
+//             await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE',{
+//                 method:'POST',
+//                 body:JSON.stringify(logindata),
+//                 headers:{
+//                     'Content-Type':'applications/json'
+//                 }
+//             }).then(response=>{
+//                 if(response.ok){
+//                     response.json().then(userinfo=>{
+//                         console.log('Successfully login')
+//                         dispatch(authActions.loginhandler({
+//                             isAuthenticated:userinfo.registered,
+//                             userId:userinfo.email,
+//                             token:userinfo.idToken,
+//                         }));
+                        
+//                     })
+                    
+//                 }else{
+//                     response.json().then(data=>{
+//                         let errorMessage='Authenication failed';
+//                         if(data && data.error && data.error.message){
+//                             errorMessage=data.error.message;
+//                         }
+//                         alert(errorMessage);
+//                     })
+//                 }
+//             })
+//         }
+               
+        
+//     };
 
 export const SignUpToServer=(logindata)=>{
     return async(dispatch)=>{

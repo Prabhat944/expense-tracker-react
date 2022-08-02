@@ -2,8 +2,9 @@ import styles from './Login.module.css';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { LoginToServer, SignUpToServer } from '../../Store/LoginServerData';
+import { SignUpToServer } from '../../Store/LoginServerData';
 import { FetchFromServer } from '../../Store/ServerData';
+import { authActions } from '../../Store/auth';
 
 
 const Login=(props)=>{
@@ -17,15 +18,13 @@ const Login=(props)=>{
     const history=useHistory();
 
     useEffect(()=>{
-       
-       
-    },[dispatch]);
+    },[]);
 
     const IsLoginHandler=()=>{
         setIsLogin(prev=>!prev);
     }
 
-   const FormSubmitHandler=(event)=>{
+   const FormSubmitHandler=async(event)=>{
     event.preventDefault();
     const email=userEmailRef.current.value;
     const password=userPasswordRef.current.value;
@@ -36,15 +35,43 @@ const Login=(props)=>{
         return;
     }
     if(isLogin){
-        dispatch(LoginToServer({
-            email:email,
-            password:password,
-            returnSecureToken:true
-        }));
-        const Id=email.replace(/[^a-zA-Z0-9 ]/g, '');
-        dispatch(FetchFromServer(Id));
-        props.login();
-    }else{
+        await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLc6N3-tIh7YG_6Fl2B6raRRnEcvhu9TE',{
+                 method:'POST',
+                 body:JSON.stringify({
+                    email:email,
+                    password:password,
+                    returnSecureToken:true
+                 }),
+                 headers:{
+                 'Content-Type':'applications/json'
+                    }
+                 }).then(response=>{
+                     if(response.ok){
+                        response.json().then(userinfo=>{
+                              console.log('Successfully login')
+                                dispatch(authActions.loginhandler({
+                                    isAuthenticated:userinfo.registered,
+                                    userId:userinfo.email,
+                                    token:userinfo.idToken,
+                                }));
+                                const Id=userinfo.email.replace(/[^a-zA-Z0-9 ]/g, '');
+                                dispatch(FetchFromServer(Id));
+                                props.loginhandler();
+                                
+                            })
+                            
+                        }else{
+                            response.json().then(data=>{
+                                let errorMessage='Authenication failed';
+                                if(data && data.error && data.error.message){
+                                    errorMessage=data.error.message;
+                                }
+                                alert(errorMessage);
+                            })
+                        }
+                    })
+                }
+        else{
         dispatch(SignUpToServer({
             email:email,
             password:password,

@@ -30,10 +30,10 @@ const Home=(props)=>{
         <div className={darkOne?styles.darkheadline:styles.headline}>
         <h3>Welcome To Expense Tracker!!!</h3>
 
-        <div className={darkOne?styles.darkprofile:styles.profile}>
+        {props.login && <div className={darkOne?styles.darkprofile:styles.profile}>
             Your profile is Incomplete.
             <Link to='/login/profile'>Complete now</Link>
-        </div>
+        </div>}
         </div>
         <div className={darkOne?styles.darkexpenseContainer:styles.expenseContainer}>
             <div className={darkOne?styles.darkpremium:styles.premium}>{TotalExpense>10000 && <button onClick={PremiumActivate} >Activate Premium</button>}</div>
@@ -44,10 +44,8 @@ const Home=(props)=>{
                 </div>}
            <div>
            <ExpenseForm darkTheme={darkOne} />
-           </div>
-           
+           </div> 
         </div>
-                
         </div>
         </Fragment>
     );

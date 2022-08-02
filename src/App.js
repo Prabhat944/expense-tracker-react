@@ -29,8 +29,10 @@ useEffect(()=>{
   if( onStart && emailId){
     onStart=false;
     const Id=emailId.replace(/[^a-zA-Z0-9 ]/g, '');
-
     dispatch(FetchFromServer(Id));
+  }
+  if(emailId){
+    setIsLogin(true);
   }
 if(cartupdate){
   const Id=emailId.replace(/[^a-zA-Z0-9 ]/g, '');
@@ -38,7 +40,7 @@ if(cartupdate){
 }
 },[cartupdate,dispatch,expense,totalExpense,emailId]);
 
-const LoginHandler=()=>{
+const loginHandler=()=>{
   setIsLogin(true);
 }
 const LogoutHandler=()=>{
@@ -57,7 +59,7 @@ const LogoutHandler=()=>{
             <Redirect to='/login' />
           </Route>
         <Route path='/login' exact>
-             <Login login={LoginHandler}/>
+             <Login loginhandler={loginHandler} />
         </Route>
         <Route path='/forgetpassword' exact>
           <ForgetPassword />
@@ -66,7 +68,7 @@ const LogoutHandler=()=>{
             <Profile />
         </Route>}
          <Route path='/login/home' exact>
-            <Home />
+            <Home login={islogin} />
         </Route>
         <Route path='*' >
             <NotReady />

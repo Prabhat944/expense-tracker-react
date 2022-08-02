@@ -11,16 +11,18 @@ const ExpenseForm=(props)=>{
     const descriptionRef=useRef();
     const categoryRef=useRef();
     const expense=useSelector(state=>state.expense.expense);
+    const totalExpense=useSelector(state=>state.expense.totalExpense);
 
     const AddNewExpense=(event)=>{
         event.preventDefault();
         const amount=amountRef.current.value;
         const description=descriptionRef.current.value;
         const category=categoryRef.current.value;
-        dispatch(expenseActions.addexpense({amount:amount,description:description,category:category}));
+        const itemkey=`${category}${amount}${description}`;
+        dispatch(expenseActions.addexpense({amount:amount,description:description,category:category,itemkey:itemkey}));
         amountRef.current.value='';
         descriptionRef.current.value='';
-        categoryRef.current.value='';
+        categoryRef.current.value='Others';
     }
 
     const EditHandler=(body)=>{
@@ -43,7 +45,8 @@ const ExpenseForm=(props)=>{
         </div>
         <div className={darkOne?styles.darkcategory:styles.category}>
             <label htmlFor='Category'>Category</label>
-            <select ref={categoryRef}>
+            <select ref={categoryRef} required placeholder='Choose Here'>
+                <option defaultValue>Others</option>
                 <option>Food</option>
                 <option>Petrol</option>
                 <option>Salary</option>
@@ -52,6 +55,7 @@ const ExpenseForm=(props)=>{
         </div>
         <button>Add Expense</button>
     </form>
+    <div className={styles.totalExpense}><span className={styles.totalText}>Total Expenses : $ {totalExpense}</span></div>
     <div className={darkOne?styles.darkuserExpenses:styles.userExpenses}>
          {userExpenses}
     </div>

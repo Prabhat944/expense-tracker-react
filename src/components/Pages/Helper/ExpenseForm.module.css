@@ -140,3 +140,17 @@
     margin-top: 20px;
     padding:10px 0;
 }
+
+.totalExpense{
+    width:fit-content;
+    margin: auto;
+    margin-top: 10px;
+}
+.totalText{
+    height:30px;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(184, 73, 221);
+    border-top: 2px solid rgb(208, 120, 237);
+    border-bottom: 2px solid rgb(208, 120, 237);
+}
