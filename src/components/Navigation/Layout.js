@@ -13,7 +13,7 @@ const Layout=(props)=>{
      }
     return(
         <Fragment>
-        <Header islogin={props.islogin}/>
+        <Header islogin={props.islogin} logoutHandler={()=>props.logoutHandler()}/>
         {premium && <button 
         onClick={ChangeTheme} 
         className={darkOne?styles.darkthemechangerbutton:styles.themechangerbutton}>

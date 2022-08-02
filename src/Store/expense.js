@@ -23,6 +23,7 @@ const expenseSlice=createSlice({
             const index=state.expense.findIndex(item=>item.description === newExpense.description);
             state.totalExpense=state.totalExpense + Number(newExpense.amount) - Number(state.expense[index].amount);
             state.expense[index]=newExpense;
+            console.log(state.expense);
             }
             
         },
@@ -32,6 +33,11 @@ const expenseSlice=createSlice({
             const index=state.expense.findIndex(item=>item.description===description);
             state.totalExpense=state.totalExpense - Number(state.expense[index].amount);
             state.expense=state.expense.filter(item=>item.description !== description);
+        },
+        clearexpense(state){
+            state.expense=[];
+            state.totalExpense=0;
+            state.cartupdate=false;
         }
     }
 });

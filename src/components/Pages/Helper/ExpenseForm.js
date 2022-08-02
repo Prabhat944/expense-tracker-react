@@ -29,7 +29,7 @@ const ExpenseForm=(props)=>{
         categoryRef.current.value=body.category;
 
       }
-    const userExpenses=expense.map(itemData=><ExpenseList item={itemData} key={Math.random().toString()} onEdit={EditHandler}/>);
+    const userExpenses=expense.map(itemData=><ExpenseList item={itemData} key={Math.random().toString()} id={Math.random().toString()} onEdit={EditHandler}/>);
     return(
         <>
         <form className={darkOne?styles.darkformContainer:styles.formContainer} onSubmit={AddNewExpense} >

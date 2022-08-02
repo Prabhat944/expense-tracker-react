@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginToServer, SignUpToServer } from '../../Store/LoginServerData';
+import { FetchFromServer } from '../../Store/ServerData';
 
 
 const Login=(props)=>{
@@ -40,6 +41,9 @@ const Login=(props)=>{
             password:password,
             returnSecureToken:true
         }));
+        const Id=email.replace(/[^a-zA-Z0-9 ]/g, '');
+        dispatch(FetchFromServer(Id));
+        props.login();
     }else{
         dispatch(SignUpToServer({
             email:email,
@@ -48,8 +52,7 @@ const Login=(props)=>{
         }
         ))
     }
-    history.replace('/login/home');
-   
+   history.replace('/login/home')
 
    }
     return (

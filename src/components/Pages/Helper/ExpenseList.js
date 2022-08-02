@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './ExpenseList.module.css';
 import {expenseActions} from '../../../Store/expense';
 
-const ExpenseList=props=>{
+const ExpenseList=(props)=>{
     const dispatch=useDispatch();
     const darkOne=useSelector(state=>state.theme.darktheme);
    

@@ -1,20 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { authActions } from '../../Store/auth';
+import {useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 
 
 const Header=(props)=>{
-    const dispatch=useDispatch();
-     const darkOne=useSelector(state=>state.theme.darktheme);
-
-     const history=useHistory();
-     const UserStateHandler=()=>{
-        if(props.islogin){
-            dispatch(authActions.logout())
-        }
-            history.replace('/login');
+    const darkOne=useSelector(state=>state.theme.darktheme);
+    const UserStateHandler=()=>{
+        props.logoutHandler();
      }
     return(
         <header className={darkOne?styles.darkheader:styles.header}>

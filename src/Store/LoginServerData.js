@@ -18,14 +18,14 @@ export const LoginToServer=(logindata)=>{
         }
         try{
             const userinfo=await FetchingInfo();
-            console.log(userinfo)
+            console.log('Successfully login')
             dispatch(authActions.loginhandler({
-                isAuthenticated:true,
+                isAuthenticated:userinfo.registered,
                 userId:userinfo.email,
                 token:userinfo.idToken,
-            }))
+            }));   
         }catch(error){
-            throw new Error('Error in Fetching data');
+            console.log('Error in Fetching data',error);
         }
     }
 };
@@ -48,14 +48,14 @@ export const SignUpToServer=(logindata)=>{
         }
         try{
             const userinfo=await SendingInfo();
-            console.log(userinfo)
+            console.log('Successfully sinup')
             dispatch(authActions.loginhandler({
                 isAuthenticated:true,
                 userId:userinfo.email,
                 token:userinfo.idToken,
             }))
         }catch(error){
-            throw new Error('Error in sinup Fetching data');
+            throw new Error();
         }
     }
 };
@@ -82,6 +82,7 @@ export const UserContactInfo=()=>{
             const userinfo=await FetchingInfo();
             const data=userinfo.users[0];
             dispatch(authActions.userpersonalinfo(data))
+            console.log('Successfully updated cart')
         }catch(error){
             throw new Error('Error in Fetching contact data');
         }

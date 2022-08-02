@@ -12,6 +12,7 @@ const Home=(props)=>{
     const darkOne=useSelector(state=>state.theme.darktheme);
     const premiumUser=useSelector(state=>state.auth.premium);
     const expense=useSelector(state=>state.expense.expense);
+    
 
       const PremiumActivate=()=>{
         dispatch(authActions.premiumuser());

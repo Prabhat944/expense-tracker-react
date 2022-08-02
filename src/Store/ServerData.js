@@ -1,9 +1,12 @@
+
 import { expenseActions } from "./expense";
 
-export const FetchFromServer=()=>{
+
+export const FetchFromServer=(emailId)=>{
+
     return async(dispatch)=>{
         const FetchingExpense=async()=>{
-            const response=await fetch('https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expense.json');
+            const response=await fetch(`https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expense/${emailId}.json`);
             if(!response.ok){
                 throw new Error('Failed to fetch data');
             }
@@ -15,7 +18,9 @@ export const FetchFromServer=()=>{
             dispatch(expenseActions.replaceexpense({
                 expense:expensedata.expense || [],
                 totalExpense:expensedata.totalExpense || 0
-            }))
+            }));
+            // history.replace('/login/home');
+            console.log('Fetched data here',expensedata)
         }catch(error){
             console.log('error in fetching data');
         }
@@ -23,10 +28,11 @@ export const FetchFromServer=()=>{
     }
 }
 
-export const ExpenseToServer=(expensedata)=>{
+export const ExpenseToServer=(expensedata,emailId)=>{
+
     return async(dispatch)=>{
         const SendingData=async()=>{
-            const response = await fetch('https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expense.json',{
+            const response = await fetch(`https://expense-tracker-react-d5a39-default-rtdb.firebaseio.com/expense/${emailId}.json`,{
                 method:'PUT',
                 body:JSON.stringify(expensedata)
             });
